@@ -345,4 +345,66 @@ public class RoomDAO {
         }
         return listService;
     }
+    //----------- booking insert detail set room----------
+    private static final String UPDATE_ROOM_BOOK = "UPDATE tblRoom SET Status = 1 WHERE roomID = ?";
+
+    public boolean updateRoomBT(String roomId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_ROOM_BOOK);
+            ptm.setString(1, roomId);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+
+    }
+    private static final String TOP_ROOM = "SELECT TOP 1 tblRoom.roomID as room  FROM tblRoom, tblRoomType WHERE tblRoom.RoomTypeID= tblRoomType.RoomTypeID AND  tblRoom.Status=0  AND tblRoomType.RoomTypeID = ?";
+
+    public List<RoomDTO> findtoprooom(String id, int cr) throws SQLException {
+        List<RoomDTO> listroom = new ArrayList();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(TOP_ROOM);
+                //  ptm.setInt(1, cr);
+                ptm.setString(1, id);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String roomID = rs.getString("room");
+                    listroom.add(new RoomDTO(roomID, 0));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listroom;
+
+    }
 }

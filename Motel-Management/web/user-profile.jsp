@@ -24,17 +24,17 @@
     <body>
 
         <%@include file="header.jsp" %> 
-         <hr>
-    <div class="header__breadcrumb container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="ShowMotelController" class="text-decoration-none">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Thông tin tài khoản</li>
+        <hr>
+        <div class="header__breadcrumb container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="ShowMotelController" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Thông tin tài khoản</li>
 
-            </ol>
-        </nav>
-    </div>
-    <hr>
+                </ol>
+            </nav>
+        </div>
+        <hr>
 
         <%            String error = (String) request.getAttribute("ERROR");
             if (error == null) {
@@ -155,58 +155,67 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                             <div class="col-lg-4">
-                                        <div class="profile-pic ">
-                                            <img src="<%= userProfile.getImage()%>" width="200" class="form-group justify-content-center"/>
-                                            <div class="upload row form-group justify-content-center">
-                                                <button class="button--primary" data-toggle="modal" data-target="#uploadImg">Thay ảnh</button>                                                   
-                                                
+                                            <div class="col-lg-4">
+                                                <div class="profile-pic ">
+                                                    <%if (userProfile.getImage() == null) {
+                                                    %>
+                                                    <img src="images/man.png" width="200" class="form-group justify-content-center"/>
+                                                    <%
+                                            } else {%>
+                                                    <img src="<%= userProfile.getImage()%>" width="200" class="form-group justify-content-center"/>
+                                                    <%
+     }%>
+
+                                                    <div class="upload row form-group justify-content-center">
+                                                        <button class="button--primary" data-toggle="modal" data-target="#uploadImg">Thay ảnh</button>                                                   
+
+                                                    </div>
+                                                </div>
+                                                <div class="profile-name row form-group justify-content-center">${sessionScope.LOGIN_USER.fullName}</div>
                                             </div>
                                         </div>
-                                        <div class="profile-name row form-group justify-content-center">${sessionScope.LOGIN_USER.fullName}</div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--Change password -->
-                    <div class="card mx-5 mb-2">
-                        <div class="card-header card-setting" id="headingTwo">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="false" aria-controls="collapseTwo">
-                                    Thay đổi mật khẩu <i class='bx bx-chevron-right'></i>
-                                </button>
-                            </h5>
-                        </div>
-                        <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordion">
-                            <div class="card-body">
-                                <div class="card-group d-block">
-                                    <form action="MainController" method="post">
-                                        <div class="row form-group">
-                                            <input class="col-md-3 col-sm-5 form-control" type="hidden" name="userID" value="<%= loginUser.getUserId()%>" required>
-                                            <input class="col-md-3 col-sm-5 form-control" type="hidden" name="role" value="<%= loginUser.getRole()%>" required>
-                                        </div>
-                                        <div class="row form-group">
-                                            <label class="offset-md-3 col-md-2 col-sm-3 col-form-label">Mật khẩu cũ:</label> 
-                                            <input class="col-md-4 col-sm-5 form-control" type="password" name="oldpassword" required>
-                                            <span class="error-message col-sm-3 mt-2"><%= userError.getPasswordError()%></span>
-                                        </div>
-                                        <div class="row form-group">
-                                            <label class="offset-md-3 col-md-2 col-sm-3 col-form-label">Mật khẩu mới:</label>
-                                            <input class="col-md-4 col-sm-5 form-control" type="password" name="newpassword" id="password" required>
-                                            <span class="error-message col-sm-3 mt-2"><%= error%></span>
-                                        </div>
-                                        <div class="row form-group">
-                                            <label class="offset-md-3 col-md-2 col-sm-3 col-form-label">Xác nhận:</label>
-                                            <input class="col-md-4 col-sm-5 form-control" type="password" name="confirmpassword" id="confirm" required>
-                                            <span class="error-message col-sm-3 mt-2"><%= userError.getConfirmpasswordError()%></span>
-                                        </div>
-                                        <div class="row form-group justify-content-center">
-                                            <button type="submit" name="action" value="ChangePassword" class="button--primary">Thay đổi</button>
-                                        </div>
-                                    </form>
+                        <!--Change password -->
+                        <div class="card mx-5 mb-2">
+                            <div class="card-header card-setting" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                        Thay đổi mật khẩu <i class='bx bx-chevron-right'></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="card-group d-block">
+                                        <form action="MainController" method="post">
+                                            <div class="row form-group">
+                                                <input class="col-md-3 col-sm-5 form-control" type="hidden" name="userID" value="<%= loginUser.getUserId()%>" required>
+                                                <input class="col-md-3 col-sm-5 form-control" type="hidden" name="role" value="<%= loginUser.getRole()%>" required>
+                                            </div>
+                                            <div class="row form-group">
+                                                <label class="offset-md-3 col-md-2 col-sm-3 col-form-label">Mật khẩu cũ:</label> 
+                                                <input class="col-md-4 col-sm-5 form-control" type="password" name="oldpassword" required>
+                                                <span class="error-message col-sm-3 mt-2"><%= userError.getPasswordError()%></span>
+                                            </div>
+                                            <div class="row form-group">
+                                                <label class="offset-md-3 col-md-2 col-sm-3 col-form-label">Mật khẩu mới:</label>
+                                                <input class="col-md-4 col-sm-5 form-control" type="password" name="newpassword" id="password" required>
+                                                <span class="error-message col-sm-3 mt-2"><%= error%></span>
+                                            </div>
+                                            <div class="row form-group">
+                                                <label class="offset-md-3 col-md-2 col-sm-3 col-form-label">Xác nhận:</label>
+                                                <input class="col-md-4 col-sm-5 form-control" type="password" name="confirmpassword" id="confirm" required>
+                                                <span class="error-message col-sm-3 mt-2"><%= userError.getConfirmpasswordError()%></span>
+                                            </div>
+                                            <div class="row form-group justify-content-center">
+                                                <button type="submit" name="action" value="ChangePassword" class="button--primary">Thay đổi</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -214,37 +223,36 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- edit Home -->
-    <div id="uploadImg" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="content">
-            <div class="modal-content modal-addRoom">
-                <div class="modal-header">
-                    <h4 class="modal-title">Thay ảnh</h4>
+        <!-- edit Home -->
+        <div id="uploadImg" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="content">
+                <div class="modal-content modal-addRoom">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thay ảnh</h4>
+                    </div>
+                    <form action="MainController" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <label class="custom-control-label d-flex">
+                                <input type="hidden" name="action" value="ChangeImage">
+                                <input type="hidden" name="userID" value=<%= loginUser.getUserId()%>>
+                                <input type="hidden" name="role" value="<%= loginUser.getRole()%>">
+                                <input type="file" name="photo" class="custom-file" accept=".jpg, .png">   
+                            </label>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button class="btn btn-success" type="submit">Xác nhận</button>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal">Hủy</button>
+                        </div>
+                    </form>
                 </div>
-                <form action="MainController" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <label class="custom-control-label d-flex">
-                            <input type="hidden" name="action" value="ChangeImage">
-                            <input type="hidden" name="userID" value=<%= loginUser.getUserId()%>>
-                            <input type="hidden" name="role" value="<%= loginUser.getRole()%>">
-                            <input type="file" name="photo" class="custom-file" accept=".jpg, .png">   
-                        </label>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <button class="btn btn-success" type="submit">Xác nhận</button>
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">Hủy</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
-    <%@include file="footer.jsp" %> 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/owner-script.js"></script>
-</body>
+        <%@include file="footer.jsp" %> 
+        <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+        <script src="assets/js/owner-script.js"></script>
+    </body>
 
 </html>

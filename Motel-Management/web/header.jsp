@@ -4,6 +4,7 @@
     Author     : cao thi phuong thuy
 --%>
 
+<%@page import="sample.users.UserGoogleDTO"%>
 <%@page import="sample.users.UserDAO"%>
 <%@page import="sample.users.DistrictDTO"%>
 <%@page import="java.util.List"%>
@@ -23,7 +24,8 @@
         </div>
         <div class="header__right">
 
-            <% UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+            <% UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER"); 
+//            UserGoogleDTO loginGoogleUser = (UserGoogleDTO) session.getAttribute("LOGIN_USER");
                 if (loginUser == null) { %>
 
             <a href="./login.jsp">Đăng nhập</a>

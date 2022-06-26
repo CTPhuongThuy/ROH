@@ -504,7 +504,7 @@ public List<MotelDTO> getDetailMotel(String motelID) throws SQLException {
                     double rating = rs.getDouble("Ratings");
                     int status = rs.getInt("status");
                     String ownerName = rs.getString("fullName");
-                    listMotel.add(new MotelDTO( name, image, phone, desct, address, district, city, rating, district, rating, ownerName, rating, ownerName, status));
+                    listMotel.add(new MotelDTO(motelID, name, image, phone, desct, address, district, city, rating, ownerName, status));
                 }
             }
         } catch (Exception e) {

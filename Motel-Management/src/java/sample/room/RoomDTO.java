@@ -19,6 +19,11 @@ public class RoomDTO {
     private String MotelID;
     private String roomType;
 
+    public RoomDTO(String roomId, int status) {
+        this.roomId = roomId;
+        this.status = status;
+    }
+
     public String getRoomType() {
         return roomType;
     }

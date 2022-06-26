@@ -78,6 +78,8 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_OWNER_SERVICE = "updateService";
     private static final String UPDATE_OWNER_SERVICE_CONTROLLER = "OwnerUpdateServiceController";
 
+    private static final String BOOK = "book";
+    private static final String BOOKING_CONTROLLER = "BookingController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -139,6 +141,8 @@ public class MainController extends HttpServlet {
                 url = DELETE_OWNER_SERVICE_CONTROLLER;
             } else if (UPDATE_OWNER_SERVICE.equals(action)) {
                 url = UPDATE_OWNER_SERVICE_CONTROLLER;
+            } else if (BOOK.equals(action)) {
+                url = BOOKING_CONTROLLER;
             }
 
         } catch (Exception e) {

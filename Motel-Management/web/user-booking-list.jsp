@@ -120,12 +120,12 @@
                                                                     <div class="d-flex">
                                                                         <!--<a href="UserManager?action=feedback?userId=<%=loginUser.getUserId()%>&motelID=<%= history.getMotelID()%>" class="btn btn-info m-b-xs shadow btn-xs sharp me-1" data-bs-toggle="tooltip">Đánh giá</a>-->
                                                                         <div class="add-room">
-                                                                            <button data-toggle="modal"  data-target="#feedback" class="btn btn-info m-b-xs shadow btn-xs sharp me-1">
+                                                                            <button data-toggle="modal"  data-target="#feedback" class="button--primary btn-info m-b-xs shadow btn-xs sharp me-1 text-white bg-success">
                                                                                 <span>Đánh giá</span>
                                                                             </button>
                                                                         </div>
                                                                         <div class="add-room">
-                                                                            <button data-toggle="modal"  data-target="#report" class="btn btn-danger shadow btn-xs sharp">
+                                                                            <button data-toggle="modal"  data-target="#report" class="button--primary btn-danger shadow btn-xs sharp text-white bg-danger">
                                                                                 <span>Report</span>
                                                                             </button>
                                                                         </div>
@@ -145,7 +145,7 @@
                                                                         <div class="modal-body">
                                                                             <div class="row p-4">
                                                                                 <div class="col-12">
-                                                                                    <div class="row form-group stars">
+                                                                                    <div class="row form-group">
                                                                                         <input name="bookingID" value="<%= history.getBookingID()%>" style="display: none">
                                                                                         <input name="userID" value="<%=loginUser.getUserId()%>" style="display: none">
                                                                                         <input name="motelID" value="<%= history.getMotelID()%>" style="display: none">
@@ -170,8 +170,8 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="modal-footer justify-content-center">
-                                                                                <button class="btn btn-success" type="submit" name="action" value="feedback">Đánh giá</button>
-                                                                                <button class="btn btn-danger" type="button" data-dismiss="modal">Hủy</button>
+                                                                                <button class=" button--primary bg-success text-white " type="submit" name="action" value="feedback">Đánh giá</button>
+                                                                                <button class="button--primary bg-danger text-white" type="button" data-dismiss="modal">Hủy</button>
                                                                             </div>
                                                                         </div>
                                                                     </form>
@@ -209,8 +209,8 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="modal-footer justify-content-center">
-                                                                                <button class="btn btn-success" type="submit" name="action" value="report">Report</button>
-                                                                                <button class="btn btn-danger" type="button" data-dismiss="modal">Hủy</button>
+                                                                                <button class="button--primary bg-success text-white" type="submit" name="action" value="report">Report</button>
+                                                                                <button class="button--primary bg-danger text-white" type="button" data-dismiss="modal">Hủy</button>
                                                                             </div>
                                                                         </div>
                                                                     </form>
@@ -228,25 +228,25 @@
                                                                                                                     <a href="UserManager?action=cancel&bookingID=<%= history.getBookingID()%>&roomID=<%= history.getRoomID()%>" class="btn btn-danger shadow btn-xs sharp">Hủy phòng</a>
                                                                                                                 </div>  -->
 
-                                                            <button class="btn btn-danger" data-toggle="modal" data-target="#removeRoom">
+                                                            <button class="button--primary bg-danger text-white clickable-row" data-toggle="modal" data-target="#removeRoom">
                                                                 <span>Hủy Phòng</span> 
                                                             </button> 
                                                         </td>        
 
                                                         <div id="removeRoom" class="modal fade" role="dialog">
-                                                            <div class="modal-dialog modal-dialog-centered" role="content">
-                                                                <div class="modal-content">
-                                                                    <div class="card-body">
-                                                                        <div class="del-title">
-                                                                            <i class='bx bx-error-circle'></i>
-                                                                            <h2>Bạn muốn hủy phòng ?</h2> 
+                                                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                                <div class="modal-content modal-addRoom">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Bạn muốn hủy phòng ?</h4> 
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
                                                                         </div>
-                                                                        <div class="del-submit d-flex justify-content-center">
+                                                                        <div class="modal-footer justify-content-center">
                                                                             <button class="btn btn-success"><a href="UserManager?action=cancel&bookingID=<%= history.getBookingID()%>&roomID=<%= history.getRoomID()%>" style="color: white">Xác Nhận</a></button>
-                                                                            <button class="btn btn-danger" type="button" data-dismiss="modal">Hủy</button>
+                                                                            <button class="button--primary bg-danger text-white" type="button" data-dismiss="modal">Hủy</button>
                                                                         </div>
                                                                     </div>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                         <%
@@ -254,7 +254,7 @@
                                                         <td>Đã hủy</td>
                                                         <td>
                                                             <div >
-                                                                <a href="MainController?action=ShowMotelDetail&motelID=<%= history.getMotelID()%>" class="btn btn-primary clickable-row">Xem lại phòng</a>
+                                                                <a href="MainController?action=ShowMotelDetail&motelID=<%= history.getMotelID()%>" class="button--primary bg-primary text-white clickable-row">Xem lại phòng</a>
                                                             </div>  
                                                         </td>      
                                                         <%}
@@ -285,12 +285,22 @@
 
         <%@include file="footer.jsp" %> 
         <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
-       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <!-- <script src="assets/js/owner-script.js"></script> -->
 
-    <script src="assets/js/user-script.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <!-- <script src="assets/js/owner-script.js"></script> -->
+
+        <script src="assets/js/user-script.js"></script>
+        // datatable
+        <script>
+            $(document).ready(function () {
+                $("#history-table").DataTable({
+                    pagingType: "full_numbers",
+                });
+            });
+        </script>
+
     </body>
 </html>

@@ -47,38 +47,42 @@
     <!-- CONTENT -->
     <section class="confirm-booking mb-5">
         <div class="container">
-            <div class="row">
+            <form class="row" action="MainController" method="get">
                 <div class="col-5">
                     <div class="infor-booking">
                         <h3 class="heading"><i class="fa fa-money-check-alt"></i> Chi tiết đặt phòng của bạn</h3>
                         <div class="box">
                             <c:forEach var="o" varStatus="counter"
                                        items="${requestScope.DETAIL_MOTEL}">
-                                <%                                                                           
-                                    double total = 0;
+                                <%                                    double total = 0;
                                     double sum = 0;
                                 %>
                                 <p class="d-flex"><i class="fa fa-hand-point-right"></i> <label><span class="label">Tên nhà
                                             nghỉ:</span> <span><input type="hidden" name="name" value="${o.name}" />${o.name}</span></label>
                                 </p>
+                                
+                                <input type="hidden"  class="d-5"  name="motelID" value="${o.motelID}" />
+                                
                                 <p class="d-flex"><i class="fa fa-hand-point-right"></i> <label><span class="label">Địa
                                             chỉ:</span><input type="hidden" name="address" value="${o.address},${o.district},${o.city}" /> ${o.address},${o.district},${o.city}
                                     </label></p>
-                                <p class="d-flex"><i class="fa fa-hand-point-right"></i> <label><span class="label">Số phòng
-                                            đặt:</span> <span><input type="hidden" name="countroom" value="<%= request.getParameter("countroom")%>" /><%= request.getParameter("countroom")%></span>
-                                        phòng</label></p>
-                                <p class="d-flex"><i class="fa fa-hand-point-right"></i>
-                                    <label><span class="label">Số giờ đặt:</span> <span><input type="hidden" name="counttime" value="<%= request.getParameter("counttime")%>" /><%= request.getParameter("counttime")%></span> giờ</label>
-                                </p>
+
                                 <div class="d-flex">
                                     <p><i class="fa fa-hand-point-right"></i><span class="label">Đơn giá:</span></p>
                                     <ul class="ml-3">
-                                        <li>- <span><%= request.getParameter("countroom")%></span> <input type="hidden" name="typename" value="<%= request.getParameter("typename")%>" /><%= request.getParameter("typename")%> <i class="fa fa-arrow-right"></i>
-                                            <span>149000</span> VNĐ
-                                        </li>
 
+                                        <c:forEach var="t" items ="${requestScope.listTest}">
+                                            <li> -ID: ${t.roomTypeID} - ${t.typeName}- Số giờ : ${t.time}- Số lượng phòng ${t.countRoom} - Giá ${t.price}
+                                            </li>
+                                            <input type="hidden" class="roomTypeID d-5"  name="roomTypeID[]" value="${t.roomTypeID}"/>
+                                            <input type="hidden" class="typename"  name="typename[]" value="${t.typeName}"/>
+                                            <input  type="hidden" class="hour_val" value="${t.time}" name="counttime[]">
+                                            <input  type="hidden" value="${t.countRoom}" name="countroom[]">
+                                            <input type="hidden" class="price" value="${t.price}" name="price[]" />
+                                        </c:forEach>
                                         <hr>
-                                        <li>- Tổng tiền: <span>149000</span> VNĐ</li>
+                                        <input type="hidden" class="price" value="${requestScope.total}" name="total" />
+                                        <li><h6>- Tổng tiền: <span>${requestScope.total}</span> VNĐ</h6></li>
                                     </ul>
                                 </div>
                                 <%
@@ -89,19 +93,19 @@
                     </div>
                     <hr>
                     <div class="infor-owner">
-                        
+
                         <h3 class="heading"><i class="fas fa-id-card-alt"></i> Chủ nhà nghỉ</h3>
                         <c:forEach var="i" varStatus="counter"
                                    items="${requestScope.DETAIL_MOTEL}">
-                        <div class="box d-flex">
-                            <span><img src="https://hfr.vn/Images/poster.png" alt="profile"></span>
-                            <span class="infor-owner-detail">
-                                <p class="m-0"><span class="label">Họ tên:</span> ${i.ownerName}</p>
-                                <p class="m-0"><span class="label">SĐT:</span> ${i.phone}</p>
-                                <p class="m-0"><span class="label">Địa chỉ:</span> ${i.address},${i.district},${i.city}
-                                </p>
-                            </span>
-                        </div>
+                            <div class="box d-flex">
+                                <span><img src="https://hfr.vn/Images/poster.png" alt="profile"></span>
+                                <span class="infor-owner-detail">
+                                    <p class="m-0"><span class="label">Họ tên:</span> ${i.ownerName}</p>
+                                    <p class="m-0"><span class="label">SĐT:</span> ${i.phone}</p>
+                                    <p class="m-0"><span class="label">Địa chỉ:</span> ${i.address},${i.district},${i.city}
+                                    </p>
+                                </span>
+                            </div>
                         </c:forEach>
                     </div>
                 </div>
@@ -112,25 +116,25 @@
                             xác, trung thực</span>
                     </div>
                     <form id="form-3" action="" method="POST" class="form row">
-                        <div class="form-item col-6">
-                            <label for="fullName">Họ và Tên</label>
-                            <input type="text" name="fullname" id="fullName" />
+                        <div class="form-item col-12">
+                            <label for="sender">Họ và Tên</label>
+                            <input type="text" name="sender" id="sender" />
                             <span id="error_message" class="helper-text text-danger"></span>
                         </div>
-                        <div class="form-item col-6">
-                            <label for="email">Địa chỉ email</label>
-                            <input type="email" name="gmail" id="gmail">
-                            <span id="error_message" class="helper-text text-danger"></span>
-                        </div>
-                        <div class="form-item col-6">
-                            <label for="telephone">Số điện thoại</label>
-                            <input type="tel" name="phone" id="telephone">
-                            <span id="error_message" class="helper-text text-danger"></span>
-                        </div>
-                        <div class="form-item col-6">
+                        <!--                        <div class="form-item col-6">
+                                                    <label for="email">Địa chỉ email</label>
+                                                    <input type="email" name="gmail" id="gmail">
+                                                    <span id="error_message" class="helper-text text-danger"></span>
+                                                </div>
+                                                <div class="form-item col-6">
+                                                    <label for="telephone">Số điện thoại</label>
+                                                    <input type="tel" name="phone" id="telephone">
+                                                    <span id="error_message" class="helper-text text-danger"></span>
+                                                </div>-->
+                        <div class="form-item col-12">
                             <label for="password">Phương thức thanh toán</label>
-                            <select class="custom-select" name="payment" id="inputGroupSelect01">
-                                <option value="1" selected>Tiền mặt</option>
+                            <select class="custom-select" name="status" id="inputGroupSelect01">
+                                <option value="0" selected>Tiền mặt</option>
                                 <option value="2">Chuyển khoản</option>
                             </select>
                         </div>
@@ -139,22 +143,22 @@
                                 thêm</label>
                             <p class="request-note">- Yêu cầu của quý khách sẽ được thực hiện phụ thuộc vào đối tác -
                             </p>
-                            <textarea id="requestMore" name="" id="" cols="30" rows="10"
+                            <textarea id="requestMore" name="desct" id="" cols="30" rows="10"
                                       placeholder="VD: Tôi cần đồ dịch vụ massage khi đến nhận phòng,... (Không bắt buộc)"></textarea>
                         </div>
                         <div class="form-checkbox col-12">
                             <input type="checkbox" aria-label="Điều khoản và chính sách" required>
                             <span>Tôi đồng ý <a href="#">Điều khoản và chính sách</a></span>
                         </div>
-                        <button type="submit" value="submit" class="button--primary btn btn-danger" action="Booking">Xác nhận
+                        <button type="submit" value="book" name="action" class="button--primary btn btn-danger">Xác nhận
                             đặt
                             phòng</button>
                         <!-- sau khi gửi form thành công  -->
-                        <span class="check-success"><i class="fa fa-check-circle"></i> Bạn đã xác nhận đặt phòng thành
-                            công</span>
+                        <!--                        <span class="check-success"><i class="fa fa-check-circle"></i> Bạn đã xác nhận đặt phòng thành
+                                                    công</span>-->
                     </form>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 

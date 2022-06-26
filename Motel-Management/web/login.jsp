@@ -4,6 +4,7 @@
     Author     : Bao
 --%>
 
+<%@page import="sample.utils.Constants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -55,6 +56,15 @@
                                 
                                 <button type="submit" name="action" value="Login" class="btn-signup btn btn-danger">Đăng nhập</button>
                             </form>
+                                <!-- login by gg -->
+                            <div>
+                                <p class="text-center my-3">Or</p>
+                                <button class="login-gg">
+                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=<%=Constants.GOOGLE_REDIRECT_URI%>&response_type=code&client_id=<%=Constants.GOOGLE_CLIENT_ID%>&approval_prompt=force">
+                                    <img src="assets/img/Google__G__Logo.svg" alt="logo-G"> Đăng nhập bằng
+                                        Google</a>
+                                </button>
+                            </div>
                             <div class="d-flex align-items-center justify-content-center pt-lg-5">
                                 <p class="mb-0 me-2">Don't have an account? </p>
                                 <a href="signup.jsp" class="signup"> Đăng ký.</a>
@@ -70,7 +80,7 @@
 
     <!-- thư viện hỗ trợ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    referrerpolicy="no-referrer"></script>
+        referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <!-- Jquery Waypoint -->
@@ -80,6 +90,18 @@
     <script src="vendor/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
     <!-- main js -->
     <script src="assets/js/user-script.js"></script>
+    <script>
+        Validator({
+            form: '#form-2',
+            errorSelector: '#error_message',
+            rules: [
+                Validator.isNotEmpty('#userName'),
+                Validator.isRequired('#userName', 'Vui lòng nhập lại tên người dùng'),
+                Validator.isNotEmpty('#password'),
+                Validator.minLength('#password', 1, 'Vui lòng nhập lại mật khẩu'),
+            ]
+        });
+    </script>
 </body>
 
 </html>

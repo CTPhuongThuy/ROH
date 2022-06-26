@@ -18,6 +18,8 @@ import sample.owner.feedbackDAO;
 import sample.owner.FeedbackDTO;
 import sample.room.RoomDAO;
 import sample.room.RoomTypeDTO;
+import sample.room.TestDAO;
+import sample.room.TestDTO;
 import sample.service.ServiceDAO;
 import sample.service.ServiceDTO;
 import sample.users.UserDAO;
@@ -36,30 +38,54 @@ public class ShowMotelBookingController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = SUCCESS;
         try {
+
             String motelID = request.getParameter("motelID");
             MotelDAO motel = new MotelDAO();
             feedbackDAO feedback = new feedbackDAO();
-            RoomDAO roomtype = new RoomDAO();
             List<MotelDTO> listMotel = motel.getDetailMotel(motelID);
             List<MotelDTO> listMotel1 = motel.getListMotel();
-            List<RoomTypeDTO> listRoomType = roomtype.getRoomType(motelID);
+            // List<RoomTypeDTO> listRoomType = roomtype.getRoomTypeTest(motelID);
             List<FeedbackDTO> listFeedback = feedback.getDetailFeedback(motelID);
+
             if (listMotel.size() > 0) {
                 request.setAttribute("DETAIL_MOTEL", listMotel);
-                if (listRoomType.size() > 0) {
-                    request.setAttribute("LIST_ROOMTYPE", listRoomType);
-                }
+//                if (listRoomType.size() > 0) {
+//                    request.setAttribute("LIST_ROOMTYPE", listRoomType);
+//                }
                 if (listFeedback.size() > 0) {
                     request.setAttribute("DETAIL_FEEDBACK", listFeedback);
                 }
                 if (listMotel1.size() > 0) {
-                request.setAttribute("LIST_MOTEL", listMotel1);
-            }
+                    request.setAttribute("LIST_MOTEL", listMotel1);
+                }
+
+                //======================
+                TestDAO test = new TestDAO();
+                String[] roomTypeID = request.getParameterValues("roomTypeID[]");
+                String[] typeName = request.getParameterValues("typename[]");
+                String[] price = request.getParameterValues("price[]");
+                String[] countroom = request.getParameterValues("countroom[]");
+                String[] counttime = request.getParameterValues("counttime[]");
+                int total = 0;
+                List<TestDTO> listTest = new ArrayList();
+                for (int i = 0; i < roomTypeID.length; i++) {
+                    String id = roomTypeID[i];
+                    String name = typeName[i];
+                    int p = Integer.parseInt(price[i]);
+                    int cr = Integer.parseInt(countroom[i]);
+                    int ct = Integer.parseInt(counttime[i]);
+                    listTest.add(new TestDTO(id, name, p, ct, cr));
+                    total += p * cr * ct;
+                }
+                request.setAttribute("listTest", listTest);
+                request.setAttribute("total", total);
+
+                //========
                 url = SUCCESS;
             }
-            
+
         } catch (Exception e) {
             log("Error at showlistcontroller: " + e.toString());
         } finally {

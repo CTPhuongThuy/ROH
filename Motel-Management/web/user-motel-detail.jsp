@@ -59,7 +59,7 @@
         </div>
         <hr>
         <!-- CONTENT -->
-        <form id="myform" name="myform" method="post" action="MainController?action=ShowMotelBooking&motelID=${param.motelID}">
+        <form id="myform" name="myform" method="post" action="MainController">
             <section class="content">
                 <div class="container pt-4">
                     <div class="row">
@@ -169,21 +169,23 @@
                                     List<RoomTypeDTO> rt = (ArrayList<RoomTypeDTO>) request.getAttribute("LIST_ROOMTYPE");
                                     double total = 0;
                                     double sum = 0;
+                                    int i = 0;
                                     if (rt.size() > 0) {
                                         for (RoomTypeDTO roomtype : rt) {
                                 %><tr>
                                     <td>
                                         <div class="row">
-                                            <div
-                                                class="title col-12 d-flex justify-content-between align-items-center">
-                                                <h5 class="room-type-title" >
-                                                    <input type="hidden" class="typename" name="typename" value="<%= roomtype.getTypeName()%>"/> <%= roomtype.getTypeName()%></h5>
+                                            <div class="title col-12 d-flex justify-content-between align-items-center">
+                                                <!--<a href="MainController?action=ShowMotelBooking&motelID=842578129&rt=<%=request.getParameterValues("rt")%>">Đặt ngay</a>-->
+                                                <input type="hidden" class="roomTypeID d-5"  name="roomTypeID[]" value="<%= roomtype.getRoomTypeID()%>"/>
+                                                <input type="hidden" class="typename"  name="typename[]" value="<%= roomtype.getTypeName()%>"/> <%= roomtype.getTypeName()%>
+                                                <input type="hidden" class="motelID"  name="motelID" value="<%= roomtype.getMotelID()%>"/> <%= roomtype.getMotelID()%></h5>
+
                                                 <div>
                                                     <span class="empty-room">
                                                         <i class="fa fa-quote-left"></i>
                                                         Còn  <%= roomtype.getCountRoom()%> phòng trống!!!
-                                                        <i
-                                                            class="fa fa-quote-right"></i>
+                                                        <i class="fa fa-quote-right"></i>
                                                     </span>
                                                     <img src="assets/img/HOT.svg"
                                                          class="hot-label"
@@ -214,20 +216,21 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="inputHour" name="time">
-                                            <input class="room_val" type="number" min="0"  max="<%= roomtype.getCountRoom()%>" value="0" name="countroom">
+                                        <div class="inputHour" name="countroom">
+                                            <input class="room_val" type="number" min="0"  max="<%= roomtype.getCountRoom()%>" value="0" name="countroom[]">
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="inputHour" name="time">
-                                            <input type="number" class="hour_val" min="0" value="1" name="counttime">
+                                        <div class="inputHour" name="counttime">
+                                            <input type="number" class="hour_val" min="0" value="1" name="counttime[]">
                                         </div>
                                     </td>
-                                    <td><input type="hidden" class="price" value="<%= roomtype.getPrice()%>" name="price" /><%= roomtype.getPrice()%> / h</td>
-                                    <td><span class="row_total">1350000.0</span></td>
+                                    <td><input type="hidden" class="price" value="<%= roomtype.getPrice()%>" name="price[]" /><%= roomtype.getPrice()%> / h</td>
+                                    <td><span class="row_total" name ="sum" value ="<%=sum%>" ><%=sum%></span></td>
                                 </tr>
 
                                 <%
+                                            i++;
                                         }
                                     }
                                     total += sum;
@@ -247,12 +250,9 @@
                                     <tr>
                                         <!-- Tổng tất cả -->
                                         <td rowspan="2" class="align-middle">
-                                            <span><span class="amount" ><input type="hidden" class="total" name="total" value="<%=total%>"/><%=total%></span> VND</span> VNĐ
-                                            <p class="m-0">- Phòng của bạn bao gồm
-                                                <span>1</span> phòng đơn và
-                                                <span>1</span>
-                                                phòng
-                                                đôi</p>
+                                            <span><span class="amount" >
+                                                    <input type="hidden" class="total" name="total" value="<%=total%>"/>
+                                                    <%=total%></span> VND</span>
                                             <p>- Giao dịch đơn giản, an toàn</p>
                                         </td>
                                     </tr>
@@ -278,7 +278,7 @@
                             <!-- sau khi đăng nhập -->
                             <% } else { %>
                             <div class="btn-booking text-center">
-                                <input class="button--primary" type = "submit" value = "Đặt ngay" />
+                                <input class="button--primary" type = "submit" name="action" value = "ShowMotelBooking" placeholder="dat ngay"/>
                             </div>
                             <%}%>
                         </div>
@@ -348,9 +348,7 @@
         referrerpolicy="no-referrer"></script>
         <!-- BS4 JS -->
         <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- owl Carousels -->
         <script src="./assets/js/owl.carousel.min.js"></script>
         <script>
@@ -372,57 +370,7 @@
             });
 
 
-// ===================Thuy detail=====================
 
-            $(function () {
-                app_a.setUp();
-            });
-            let vnd = Intl.NumberFormat("vi-VN", {
-                style: "currency",
-                currency: "VND",
-                useGrouping: true
-            });
-            var app_a = {
-                tbl: '#app_a',
-                h: 'input.hour_val',
-                r: 'input.room_val',
-                t: '.row_total',
-                am: '.amount',
-                p: '.price',
-                setUp: function () {
-                    var _this = this;
-                    _this.amount();
-                    $(this.tbl).find('input').change(function () {
-                        _this.amount();
-                    });
-                },
-                amount: function () {
-                    var _this = this,
-                            am = $(_this.am),
-                            amount = 0;
-                    $(this.tbl).find('tbody tr').each(function () {
-                        amount += _this.rowtotal(this);
-                    });
-                    am.html(_this.toCur(amount));
-                },
-                rowtotal: function (row) {
-                    var _this = this,
-                            r = $(row),
-                            h = r.find(_this.h),
-                            p = r.find(_this.p),
-                            rm = r.find(_this.r),
-                            h_val = h.val(),
-                            r_val = rm.val(),
-                            p_val = p.val(),
-                            t = r.find(_this.t),
-                            total = h_val * r_val * p_val;
-                    t.html(_this.toCur(total));
-                    return total;
-                },
-                toCur: function (val) {
-                    return vnd.format(val);
-                }
-            }
 // ===================Thuy detail=====================
         </script>
         <!-- lightbox -->

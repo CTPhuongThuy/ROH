@@ -672,6 +672,77 @@ public boolean checkDuplcate(String userId) throws SQLException {
         return listDis;
     
     }
+     //=========login google===============
+    private static final String CKECK_EMAIL = "SELECT userId, fullname, image FROM tblUser WHERE Gmail = ?";
+
+    public UserDTO checkEmail(String email) throws SQLException {
+        UserDTO user = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CKECK_EMAIL);
+                ptm.setString(1, email);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    String id = rs.getString("userId");
+                    String fullname = rs.getString("fullname");
+                    String image = rs.getString("image");
+                    String password = "***";
+                    String role = "US";
+                    user = new UserDTO(id, fullname,image, password, role);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return user;
+    }
+
+    public boolean insertUserGoogle(UserDTO usergoogle) throws SQLException, ClassNotFoundException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "INSERT INTO tblUser(userId, fullName, phone, gmail, password, role, status) "
+                        + " VALUES(?,?,?,?,?,?,?)";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, usergoogle.getUserId());
+                stm.setString(2, usergoogle.getFullName());
+                stm.setString(3, usergoogle.getPhone());
+                stm.setString(4, usergoogle.getGmail());
+                stm.setString(5, usergoogle.getPassword());
+                stm.setString(6, usergoogle.getRole());
+                stm.setInt(7, usergoogle.getStatus());
+                check = stm.executeUpdate() > 0;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+
+    }
+
+    //=========login google===============
 }
 
 
