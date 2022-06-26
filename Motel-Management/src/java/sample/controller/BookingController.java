@@ -62,7 +62,7 @@ public class BookingController extends HttpServlet {
             String desct = request.getParameter("desct");
             int total = Integer.parseInt(request.getParameter("total"));
             int status = Integer.parseInt(request.getParameter("status"));
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             String bookdate = formatter.format(date);
             Random generator = new Random();

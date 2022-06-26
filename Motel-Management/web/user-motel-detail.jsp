@@ -101,15 +101,7 @@
                                         <h2>Đặt lịch</h2>
                                         <hr>
                                         <div class="content-booking-detail">
-                                            <% if (loginUser == null) { %>
-                                            <p>Vui lòng đăng nhập để đặt lịch</p>
-                                            <button class="button--primary"
-                                                    href="./login.jsp">Đăng
-                                                nhập</button>
-                                            <p>hoặc</p>
-                                            <button class="button--primary"
-                                                    href="./signup.jsp">Đăng ký</button>
-                                            <% } else { %>
+                                            
                                             <p>Thủ tục đặt phòng đơn giản, nhanh
                                                 gọn</p>
                                             <button
@@ -118,7 +110,6 @@
                                                     class="text-white text-decoration-none">Đặt
                                                     phòng</a></button>
 
-                                            <%}%>
                                         </div>
                                     </div>
 
@@ -133,7 +124,7 @@
                                                        alt="profile"
                                                        style="width: 100px; min-height: 100px"></span>
                                             <span>
-                                                <p class="m-0"> ${o.ownerName}</p>
+                                                <p class="m-0"> ${o.ownerId}</p>
                                                 <p class="m-0">Tele: ${o.phone}</p>
                                             </span>
                                         </div>
@@ -179,7 +170,7 @@
                                                 <!--<a href="MainController?action=ShowMotelBooking&motelID=842578129&rt=<%=request.getParameterValues("rt")%>">Đặt ngay</a>-->
                                                 <input type="hidden" class="roomTypeID d-5"  name="roomTypeID[]" value="<%= roomtype.getRoomTypeID()%>"/>
                                                 <input type="hidden" class="typename"  name="typename[]" value="<%= roomtype.getTypeName()%>"/> <%= roomtype.getTypeName()%>
-                                                <input type="hidden" class="motelID"  name="motelID" value="<%= roomtype.getMotelID()%>"/> <%= roomtype.getMotelID()%></h5>
+                                                <input type="hidden" class="motelID"  name="motelID" value="<%= roomtype.getMotelID()%>"/> 
 
                                                 <div>
                                                     <span class="empty-room">

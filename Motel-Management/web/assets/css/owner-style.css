@@ -1717,3 +1717,6 @@ line-height: 35px;
     padding: 4px 10px;
     border-radius: 5px;
 }
+.spacing #myTable_wrapper #myTable_length {
+    margin-left: 250px;
+}
