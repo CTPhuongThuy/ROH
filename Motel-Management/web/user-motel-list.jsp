@@ -125,20 +125,7 @@
 
                     </div>
                     <div class="pagination mb-3">
-                        <button class="btn">
-                            <i class="fa fa-angle-left"></i>
-                        </button>
-                        <div class="pages">
-                            <a class="page active">1</a>
-                            <a class="page">2</a>
-                            <a class="page">3</a>
-                            <a class="page">4</a>
-                            <a class="page">...</a>
-                            <a class="page">10</a>
-                        </div>
-                        <button class="btn">
-                            <i class="fa fa-angle-right"></i>
-                        </button>
+                        
                     </div>
                 </div>
             </div>
