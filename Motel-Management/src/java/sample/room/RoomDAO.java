@@ -19,6 +19,7 @@ import sample.utils.DBUtils;
  * @author Bao
  */
 public class RoomDAO {
+
     private static final String SHOW_ROOM = "SELECT RoomID, Name, tblRoomType.TypeName, Price, Desct, tblRoom.Status, MotelID FROM tblRoom, tblRoomType WHERE MotelID = ? and tblRoom.RoomTypeID = tblRoomType.RoomTypeID AND (tblRoom.Status = 0 OR tblRoom.Status = 1 ) ";
     private static final String CHECK_ROOMID = "SELECT RoomID FROM tblRoom Where RoomID = ? ";
     private static final String CHECK_ROOMTYPEID = "SELECT RoomTypeID FROM tblRoomType Where RoomTypeID = ?";
@@ -30,8 +31,8 @@ public class RoomDAO {
             + "from tblRoomType as rt, tblMotel as m \n"
             + "WHERE m.MotelID = rt.MotelID AND rt.Status = 1 AND m.MotelID= ? ";
     private static final String SEARCH_ROOM = "SELECT RoomID, Name, tblRoomType.TypeName, Price, Desct, tblRoom.Status, MotelID FROM tblRoom, tblRoomType WHERE MotelID = ? and tblRoom.RoomTypeID = tblRoomType.RoomTypeID AND tblRoom.Name like ? AND(tblRoom.Status = 0 OR tblRoom.Status = 1 ) ";
-    
-    public List<RoomDTO> searchRoomByName(String ownerID,String search) throws SQLException {
+
+    public List<RoomDTO> searchRoomByName(String ownerID, String search) throws SQLException {
         List<RoomDTO> listRoom = new ArrayList();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -69,7 +70,7 @@ public class RoomDAO {
         }
         return listRoom;
     }
-    
+
     public boolean updateRoom(String roomID, String Name, String roomTypeID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -121,7 +122,7 @@ public class RoomDAO {
         }
         return check;
     }
-    
+
     public boolean deleteRoom(String roomID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -304,10 +305,10 @@ public class RoomDAO {
         }
         return listRoom;
     }
-    private static final String GET_ROOM_TYPE = "select rt.RoomTypeID ,rt.TypeName, rt.Image, rt.Price, rt.Desct , rt.RoomTypeID, count(r.RoomID) as countRoom\n" +
-"	from tblRoomType as rt, tblMotel as m, tblRoom as r\n" +
-"	WHERE m.MotelID = rt.MotelID AND rt.Status = 1 AND rt.RoomTypeID=r.RoomTypeID AND m.MotelID= ? AND r.Status=0\n" +
-"	GROUP BY rt.RoomTypeID ,rt.TypeName, rt.Image, rt.Price, rt.Desct ,rt.RoomTypeID ";
+    private static final String GET_ROOM_TYPE = "select rt.RoomTypeID ,rt.TypeName, rt.Image, rt.Price, rt.Desct , rt.RoomTypeID, count(r.RoomID) as countRoom\n"
+            + "	from tblRoomType as rt, tblMotel as m, tblRoom as r\n"
+            + "	WHERE m.MotelID = rt.MotelID AND rt.Status = 1 AND rt.RoomTypeID=r.RoomTypeID AND m.MotelID= ? AND r.Status=0\n"
+            + "	GROUP BY rt.RoomTypeID ,rt.TypeName, rt.Image, rt.Price, rt.Desct ,rt.RoomTypeID ";
 
     public List<RoomTypeDTO> getRoomType(String motelID) throws SQLException {
         List<RoomTypeDTO> listService = new ArrayList();
@@ -327,7 +328,7 @@ public class RoomDAO {
                     String desct = rs.getString("Desct");
                     int price = rs.getInt("Price");
                     int countRoom = rs.getInt("countRoom");
-                    listService.add(new RoomTypeDTO(roomTypeID, typeName, price, motelID, image, desct,countRoom));
+                    listService.add(new RoomTypeDTO(roomTypeID, typeName, price, motelID, image, desct, countRoom));
                 }
             }
         } catch (Exception e) {
@@ -356,7 +357,7 @@ public class RoomDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_ROOM_BOOK);
-            ptm.setString(1, roomId);
+                ptm.setString(1, roomId);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -406,5 +407,65 @@ public class RoomDAO {
         }
         return listroom;
 
+    }
+    private static final String FIND_ROOM = "select distinct r.roomid , r.Status from tblMotel as m , tblBooking as b, tblBookingDetail as bd, tblRoom as r\n"
+            + "Where b.bookingid = bd.BookingID  AND bd.roomid = r.roomid AND b.bookingid = ?";
+
+    public List<RoomDTO> findrooom(String bookingID) throws SQLException {
+        List<RoomDTO> listroom = new ArrayList();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(FIND_ROOM);
+                ptm.setString(1, bookingID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String roomID = rs.getString("roomid");
+                    int status = rs.getInt("status");
+                    listroom.add(new RoomDTO(roomID, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listroom;
+    }
+    private static final String CANCEL_ROOM = "UPDATE tblRoom SET Status = 0 WHERE roomID =?";
+
+    public boolean cancelRoom(String roomId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CANCEL_ROOM);
+                ptm.setString(1, roomId);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 }

@@ -279,7 +279,7 @@ public class HistoryDAO {
     }
 
 /*admin*/
-  private static final String GET_USER_HISTORY="SELECT distinct b.BookingID,m.MotelID, m.Name, bd.RoomID,BookingDate, b.Total, b.Status\n" +
+  private static final String GET_USER_HISTORY="SELECT distinct b.BookingID,m.MotelID, m.Name, BookingDate, b.Total, b.Status\n" +
 "						FROM tblBooking as b, tblBookingDetail as bd , tblPayment as p, tblRoom as r , tblRoomType as rt, tblMotel as m, tblUser as u\n" +
 "						WHERE b.BookingID = bd.BookingID AND bd.RoomID = r.RoomID AND r.RoomTypeID=  rt.RoomTypeID AND rt.MotelID= m.MotelID AND b.UserID = u.UserID AND u.UserID = ?"
           + "                                   ORDER BY BookingDate desc";
@@ -298,12 +298,11 @@ public class HistoryDAO {
                 while (rs.next()) {
                     String bookingID = rs.getString("BookingID");
                     String motelID = rs.getString("MotelID");
-                    String roomID = rs.getString("RoomID");
                     String motelName = rs.getString("Name");
                     String status = rs.getString("Status");
                     String date = rs.getString("BookingDate");
                     int totalPrice = rs.getInt("Total");
-                    listHistory.add(new HistoryDTO(bookingID, motelID, roomID, userID, motelName, status, 0, "", date, totalPrice));
+                    listHistory.add(new HistoryDTO(bookingID, motelID, "", userID, motelName, status, 0, "", date, totalPrice));
                 }
             }
         } catch (Exception e) {

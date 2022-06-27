@@ -3,15 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/src/java/sample/booking/BookingDTO.java</file>
-            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/src/java/sample/controller/LoginController.java</file>
-            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/web/login.jsp</file>
-            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/web/user-motel-detail.jsp</file>
-            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/src/java/sample/controller/LoginGoogleServlet.java</file>
-            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/src/java/sample/room/RoomDAO.java</file>
-            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/web/footer.jsp</file>
-            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/src/java/sample/controller/BookingController.java</file>
-            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/web/user-booking.jsp</file>
+            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/web/admin-profile.jsp</file>
+            <file>file:/E:/TaiLieuCN/CN5/SWP/ROH/ROH/Motel-Management/web/assets/js/admin.js</file>
         </group>
     </open-files>
 </project-private>

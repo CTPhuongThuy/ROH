@@ -31,7 +31,7 @@ public class BookingDetailDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                     ptm = conn.prepareStatement(BOOKINGDT_SUB);
-                    ptm.setString(1, bt.getBookingID());
+                    ptm.setString(1, bt.getBookingDetailID());
                     ptm.setString(2, roomId);
                     ptm.setString(3, bt.getBookingID());
                     ptm.setInt(4, bt.getTime());

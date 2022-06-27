@@ -69,7 +69,7 @@ public class BookingController extends HttpServlet {
             String bookingID = String.valueOf(generator.nextInt(9999999));
             List<MotelDTO> listMotel = motel.getDetailMotel(motelID);
             // List<RoomTypeDTO> listRoomType = roomtype.getRoomTypeTest(motelID);
-            boolean check = true;
+            boolean check = false;
             BookingDTO book = new BookingDTO(bookingID, bookdate, desct, userId, status, total);
             boolean checkCreate = booking.insertBooking(book);
             if (status == 0) {
@@ -99,7 +99,8 @@ public class BookingController extends HttpServlet {
                 int ct = Integer.parseInt(counttime[i]);
                 listTest.add(new TestDTO(id, name, p, ct, cr));
                 listbt.add(new BookingDetailDTO(bookingID, id, bookingID, ct));
-                BookingDetailDTO bt = new BookingDetailDTO(bookingID, id, bookingID, ct);
+                String bookingdetailID = String.valueOf(generator.nextInt(9999999));
+                BookingDetailDTO bt = new BookingDetailDTO(bookingdetailID, id, bookingID, ct);
                 RoomDAO roomdao1 = new RoomDAO();
                 boolean checkBT = false;
                 for (int c = 1; c <= cr; c++) {
@@ -114,14 +115,12 @@ public class BookingController extends HttpServlet {
                     }
                 }
             }
-            
 
 //                if (checkBT) {
 //                    RoomDTO room = new RoomDTO(id, status);
 //                    RoomDAO roomdao = new RoomDAO();
 //                    updateroom = roomdao.updateRoomBT(cr, id);
 //                }
-
             //===============
             if (checkCreate & check & updateroom) {
                 request.setAttribute("SUCCESS", "Booking thanh cong ");

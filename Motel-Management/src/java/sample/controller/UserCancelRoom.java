@@ -6,12 +6,15 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.motel.MotelDAO;
+import sample.room.RoomDAO;
+import sample.room.RoomDTO;
 
 /**
  *
@@ -29,17 +32,21 @@ public class UserCancelRoom extends HttpServlet {
         String url = ERROR;
         MotelDAO dao = new MotelDAO();
         try {
+            RoomDAO roomdao1 = new RoomDAO();
             String bookingID = request.getParameter("bookingID");
-            String roomID = request.getParameter("roomID");
+            String roomID = request.getParameter("motelID");
             boolean checkCancel = dao.cancelBooking(bookingID);
+            boolean checkBT = false;
             if (checkCancel) {
-                request.setAttribute("MESSAGE", "Successfully");
-                boolean checkRoom = dao.cancelRoom(roomID);
-                if (checkRoom) {
-                    url = SUCCESS;
-
-                    request.setAttribute("SUCCESS", "Cập nhật thành công");
+                List<RoomDTO> findroom = roomdao1.findrooom(bookingID);
+                for (RoomDTO roomDTO : findroom) {
+                    checkBT = roomdao1.cancelRoom(roomDTO.getRoomId());
                 }
+                if (checkBT) {
+                        url = SUCCESS;
+                        request.setAttribute("MESSAGE", "Successfully");
+                        request.setAttribute("SUCCESS", "Cập nhật thành công");
+                    }
             }
         } catch (Exception e) {
             log("Error at OwnerCreateMotelController:" + e.toString());

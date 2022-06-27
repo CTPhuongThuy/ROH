@@ -90,7 +90,6 @@
                                                             <tr>
                                                                 <th>Mã đặt phòng</th>
                                                                 <th>Tên Motel</th>
-                                                                <th>Mã Phòng</th>
                                                                 <th>Ngày đặt phòng</th>
                                                                 <th>Tổng tiền</th>
                                                                 <th>Tình trạng</th>
@@ -108,7 +107,6 @@
                                                                 data-bs-toggle="tooltip"data-bs-placement="right" title="Nhấn để xem chi tiết">
                                                                 <td><%= history.getBookingID()%></td>
                                                                 <td><%= history.getUserName()%></td>
-                                                                <td><%= history.getRoomID()%></td>
                                                                 <td><%= history.getDate()%></td>
                                                                 <td><span class="price-format" data-price="<%= history.getTotal()%>"></span></td>
 
@@ -243,7 +241,7 @@
                                                                 </button>
                                                                         </div>
                                                                         <div class="modal-footer justify-content-center">
-                                                                            <button class="btn btn-success"><a href="UserManager?action=cancel&bookingID=<%= history.getBookingID()%>&roomID=<%= history.getRoomID()%>" style="color: white">Xác Nhận</a></button>
+                                                                            <button class="btn btn-success"><a href="UserManager?action=cancel&bookingID=<%= history.getBookingID()%>&motelID=<%= history.getMotelID()%>" style="color: white">Xác Nhận</a></button>
                                                                             <button class="button--primary bg-danger text-white" type="button" data-dismiss="modal">Hủy</button>
                                                                         </div>
                                                                     </div>
