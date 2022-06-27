@@ -1,3 +1,19 @@
+
+let vnd = Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+    useGrouping: true
+}); 
+function price_format(){
+    $('.price-format').each(function(){
+        var $price = $(this).data('price'),
+            html=vnd.format($price);
+        $(this).html(html);
+    });
+}
+$(function(){
+    price_format();
+});
 let toggle = document.querySelector('.toggle');
 let navigation = document.querySelector('.navigation');
 let header = document.querySelector('.header');
@@ -36,6 +52,7 @@ function preview() {
         reader.readAsDataURL(i);
     }
 }
+
 //data-table
 
 $(document).ready( function () {

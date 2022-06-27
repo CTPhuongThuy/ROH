@@ -70,7 +70,7 @@
                                 class="col-12 content__title d-flex justify-content-between align-items-center">
                                 <div class="content__title-left">
                                     <h3 class="headingd-inline-block pr-3"><i class="fa fa-hotel"> </i> ${o.name}
-                                        <span>${o.rating} <span style="color: yellow"> <i class="fa fa-star"></i></span></span></h3>
+                                        <span>${o.rating} <i class="fa fa-star" style="color: yellow"></i></span></h3>
                                     <p>${o.address},${o.district},${o.city}</p>
                                 </div>
                             </div>
@@ -216,7 +216,7 @@
                                             <input type="number" class="hour_val" min="0" value="1" name="counttime[]">
                                         </div>
                                     </td>
-                                    <td><input type="hidden" class="price" value="<%= roomtype.getPrice()%>" name="price[]" /><%= roomtype.getPrice()%> / h</td>
+                                    <td><input type="hidden" class="price" value="<%= roomtype.getPrice()%>" name="price[]" /><span class="price-format" data-price="<%= roomtype.getPrice()%>"></span> / h</td>
                                     <td><span class="row_total" name ="sum" value ="<%=sum%>" ><%=sum%></span></td>
                                 </tr>
 

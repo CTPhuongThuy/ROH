@@ -124,7 +124,7 @@
                                         <p><i class="fas fa-address-book"></i> Hotline</p><p> ${o.phone}</p>
                                     </div>
                                     <div class="motel-price d-flex justify-content-between">
-                                        <p style="font-size: 1rem"><i class="fas fa-money-bill-wave"></i> Chỉ từ: ${o.motelprice}</p>
+                                        <p style="font-size: 1rem"><i class="fas fa-money-bill-wave"></i> Chỉ từ: <span class="price-format" data-price="${o.motelprice}"></span></p>
                                         <button class="button--primary"><a class="text-decoration-none text-white"
                                                                            href="MainController?action=ShowMotelDetail&motelID=${o.motelID}">Xem ngay</a></button> 
                                     </div>
@@ -157,7 +157,7 @@
                                         <p>${o.phone}</p>
                                     </div>
                                     <div class="motel-price d-flex justify-content-between">
-                                        <p style="font-size: 1rem"><i class="fas fa-money-bill-wave"></i> Chỉ từ: ${o.motelprice}</p>
+                                        <p style="font-size: 1rem"><i class="fas fa-money-bill-wave"></i> Chỉ từ: <span class="price-format" data-price="${o.motelprice}"></span></p>
                                         <button class="button--primary"><a class="text-decoration-none text-white"
                                                                            href="MainController?action=ShowMotelDetail&motelID=${o.motelID}">Xem ngay</a></button> 
                                     </div>

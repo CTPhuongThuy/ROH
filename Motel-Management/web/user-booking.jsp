@@ -72,7 +72,7 @@
                                     <ul class="ml-3">
 
                                         <c:forEach var="t" items ="${requestScope.listTest}">
-                                            <li> -ID: ${t.roomTypeID} - ${t.typeName}- Số giờ : ${t.time}- Số lượng phòng ${t.countRoom} - Giá ${t.price}
+                                            <li> -ID: ${t.roomTypeID} - ${t.typeName}- Số giờ : ${t.time}- Số lượng phòng ${t.countRoom} - Giá <span class="price-format" data-price="${t.price}"></span> 
                                             </li>
                                             <input type="hidden" class="roomTypeID d-5"  name="roomTypeID[]" value="${t.roomTypeID}"/>
                                             <input type="hidden" class="typename"  name="typename[]" value="${t.typeName}"/>
@@ -82,7 +82,7 @@
                                         </c:forEach>
                                         <hr>
                                         <input type="hidden" class="price" value="${requestScope.total}" name="total" />
-                                        <li><h6>- Tổng tiền: <span>${requestScope.total}</span> VNĐ</h6></li>
+                                        <li><h6>- Tổng tiền: <span class="price-format" data-price="${requestScope.total}"></span> VNĐ</h6></li>
                                     </ul>
                                 </div>
                                 <%

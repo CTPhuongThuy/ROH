@@ -110,7 +110,7 @@
                                                                 <td><%= history.getUserName()%></td>
                                                                 <td><%= history.getRoomID()%></td>
                                                                 <td><%= history.getDate()%></td>
-                                                                <td><%= history.getTotal()%></td>
+                                                                <td><span class="price-format" data-price="<%= history.getTotal()%>"></span></td>
 
                                                                 <%
                                                                     if (history.getStatus().equals("1")) {

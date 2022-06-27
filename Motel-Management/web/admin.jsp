@@ -211,7 +211,7 @@
                                                         <td>${t.userName}</td>
                                                         <td>${t.payType}</td>
                                                         <td>
-                                                            <div class="">${t.total}</div>
+                                                            <span class="price-format" data-price="${t.total}"></span>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -278,8 +278,9 @@
         </script>
         <!--        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script> -->
+         <script src="assets/js/admin.js"></script>
         <script src="assets/js/owner-script.js"></script>
-        <script src="assets/js/admin.js"></script>
+       
     </body>
 
 </html>

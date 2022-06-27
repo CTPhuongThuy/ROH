@@ -197,6 +197,16 @@ var app_a = {
     return vnd.format(val);
   },
 };
+function price_format(){
+    $('.price-format').each(function(){
+        var $price = $(this).data('price'),
+            html=vnd.format($price);
+        $(this).html(html);
+    });
+}
+$(function(){
+    price_format();
+});
 // ===================Thuy detail=====================
 /***AVATAR SCRIPT***/
 
