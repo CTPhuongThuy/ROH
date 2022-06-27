@@ -98,9 +98,9 @@
                         <c:forEach var="i" varStatus="counter"
                                    items="${requestScope.DETAIL_MOTEL}">
                             <div class="box d-flex">
-                                <span><img src="https://hfr.vn/Images/poster.png" alt="profile"></span>
+                                <span><img src="images/man.png"   style="width: 100px; min-height: 100px" alt="profile"></span>
                                 <span class="infor-owner-detail">
-                                    <p class="m-0"><span class="label">Họ tên:</span> ${i.ownerName}</p>
+                                    <p class="m-0"><span class="label">Họ tên:</span> ${i.ownerId}</p>
                                     <p class="m-0"><span class="label">SĐT:</span> ${i.phone}</p>
                                     <p class="m-0"><span class="label">Địa chỉ:</span> ${i.address},${i.district},${i.city}
                                     </p>

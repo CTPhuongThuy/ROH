@@ -102,21 +102,25 @@ public class BookingController extends HttpServlet {
                 BookingDetailDTO bt = new BookingDetailDTO(bookingID, id, bookingID, ct);
                 RoomDAO roomdao1 = new RoomDAO();
                 boolean checkBT = false;
-                List<RoomDTO> toproom = roomdao1.findtoprooom(id, cr);
-                for (RoomDTO roomDTO : toproom) {
-                    checkBT = bookingDetail.insertBt(bt, roomDTO.getRoomId());
-                    if (checkBT) {
-                        RoomDTO room = new RoomDTO(id, status);
-                        RoomDAO roomdao = new RoomDAO();
-                        updateroom = roomdao.updateRoomBT(roomDTO.getRoomId());
+                for (int c = 1; c <= cr; c++) {
+                    List<RoomDTO> toproom = roomdao1.findtoprooom(id, cr);
+                    for (RoomDTO roomDTO : toproom) {
+                        checkBT = bookingDetail.insertBt(bt, roomDTO.getRoomId());
+                        if (checkBT) {
+                            RoomDTO room = new RoomDTO(id, status);
+                            RoomDAO roomdao = new RoomDAO();
+                            updateroom = roomdao.updateRoomBT(roomDTO.getRoomId());
+                        }
                     }
                 }
+            }
+            
+
 //                if (checkBT) {
 //                    RoomDTO room = new RoomDTO(id, status);
 //                    RoomDAO roomdao = new RoomDAO();
 //                    updateroom = roomdao.updateRoomBT(cr, id);
 //                }
-            }
 
             //===============
             if (checkCreate & check & updateroom) {

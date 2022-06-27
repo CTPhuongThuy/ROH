@@ -54,6 +54,8 @@ public class LoginGoogleServlet extends HttpServlet {
             if (checkemail != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("LOGIN_USER", checkemail);
+                UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+                session.setAttribute("userId", loginUser.getUserId());
                 url = USER_PAGE;
             } else {
                 Random generator = new Random();
@@ -67,6 +69,7 @@ public class LoginGoogleServlet extends HttpServlet {
                 if (checkInsert) {
                     HttpSession session = request.getSession();
                     session.setAttribute("LOGIN_USER", usergoogle);
+                session.setAttribute("userId", userId);
                     url = USER_PAGE;
                 }
             }
