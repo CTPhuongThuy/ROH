@@ -8,9 +8,9 @@ Project ROH Motel (Room on Road Motel) is a web application platform like bookin
 This has done within 10 weeks of Software Development Project - SWP391 at FPT University guided by Mr. Nguyen The Hoang. Team members:
 ## Developers
 - Cao Thi Phuong Thuy (Leader) 
-    - Gmail: vntphuongthuy.is@gmail.com
-    - Github: https://github.com/tinh-nhi
-
+    - Gmail: caothiphuongthuy.07@gmail.com
+    - Github: https://github.com/CTPhuongThuy
+    
 - Le Minh Quan
     - Gmail: 
     - Github: https://github.com/Quanle9851
